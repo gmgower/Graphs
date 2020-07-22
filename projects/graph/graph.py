@@ -13,19 +13,19 @@ class Graph:
         """
         Add a vertex to the graph.
         """
-        pass  # TODO
+        self.vertices[vertex_id] = set()
 
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
         """
-        pass  # TODO
+        self.vertices[v1].add(v2)
 
     def get_neighbors(self, vertex_id):
         """
         Get all neighbors (edges) of a vertex.
         """
-        pass  # TODO
+        return self.vertices[vertex_id]
 
     def bft(self, starting_vertex):
         """
@@ -109,6 +109,7 @@ class Graph:
         s.push(starting_vertex)
         # make a set to track the nodes we've visited
         visited = set()
+
         # as long as our stack isn't empty
         while s.size() > 0:
         ## pop off the top, this our current nodes
@@ -118,12 +119,14 @@ class Graph:
             if current_node not in visited:
         ### mark it as visited
                 visited.add(current_node)
+        ### print it (in this case)
+                print(current_node)
         ### get its neighbors
                 neighbors = self.get_neighbors(current_node)
         ### iterate over neighbors
                 for neighbor in neighbors:
         #### and add them to our Stack
-                    s.enqueue(neighbor)
+                    s.push(neighbor)
         '''
         https://raw.githubusercontent.com/LambdaSchool/Graphs/master/objectives/breadth-first-search/img/bfs-visit-order.png
 
