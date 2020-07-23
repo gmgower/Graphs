@@ -59,7 +59,7 @@ class Graph:
                 for next_vert in self.get_neighbors(v):
                     # enqueue new vertices for all the neighbors
                     q.enqueue(next_vert)
-                    
+
     # Part 3: Implement Depth-First Traversal with a Stack
     def dft(self, starting_vertex):
         """
@@ -91,14 +91,29 @@ class Graph:
                     # push new vertices for all the neighbors
                     s.push(next_vert)
 
-    def dft_recursive(self, starting_vertex):
+    # Part 4: Implement Depth-First Traversal using Recursion
+    def dft_recursive(self, starting_vertex, visited = None):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
 
         This should be done using recursion.
         """
-        pass  # TODO
+        # base case:
+        # if visited doesn't exits
+        if not visited:
+        # create a new set
+            visited = set()
+        # and add the starting vertex
+        visited.add(starting_vertex)
+        print(starting_vertex)
+
+        # loop through all the vertices,
+        for vert in self.vertices[starting_vertex]:
+        # and if it hasn't been visited,
+            if vert not in visited:
+        # recursively call DFT
+                self.dft_recursive(vert, visited)
     
     # Part 5: Implement Breadth-First Search
     def bfs(self, starting_vertex, destination_vertex):
