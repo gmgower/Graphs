@@ -3,36 +3,62 @@ Simple graph implementation
 """
 from util import Stack, Queue  # These may come in handy
 
+# Part 1: Graph Class
 class Graph:
 
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
     def __init__(self):
+        # create a dictionary(hastable) to hold the vertices of the graph
         self.vertices = {}
 
     def add_vertex(self, vertex_id):
         """
         Add a vertex to the graph.
         """
+        # create an empty set to hold the vertices
         self.vertices[vertex_id] = set()
 
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
         """
+        # add an edge value to the set in each vertex
         self.vertices[v1].add(v2)
 
     def get_neighbors(self, vertex_id):
         """
         Get all neighbors (edges) of a vertex.
         """
+        # function to calculate all edges of a vertex
         return self.vertices[vertex_id]
 
+    # Part II: Implement Breadth-First Traversal
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # create a queue (BFT requires a queue)
+        q = Queue()
+        # enqueue the starting index
+        q.enqueue(starting_vertex)
+        # create a blank set to hold the nodes that have been visited
+        visited = set()
+
+        # run a loop while the queue still has items
+        while q.size() > 0:
+            # dequeue the first item and store it in a variable
+            v = q.dequeue()
+
+            # check if the node has already been visited or not
+            if v not in visited:
+                # if not, print it and
+                print(v)
+                visited.add(v)
+
+                for next_vert in self.get_neighbors(v):
+                    # enqueue new vertices for all the neighbors
+                    q.enqueue(next_vert)
 
     def dft(self, starting_vertex):
         """
@@ -49,7 +75,8 @@ class Graph:
         This should be done using recursion.
         """
         pass  # TODO
-
+    
+    # Part 5: Implement Breadth-First Search
     def bfs(self, starting_vertex, destination_vertex):
         """
         Return a list containing the shortest path from
@@ -96,6 +123,7 @@ class Graph:
         neighbors = set(2)
         '''
 
+    # Part 6: Implement Depth-First Search
     def dfs(self, starting_vertex, destination_vertex):
         """
         Return a list containing a path from
@@ -175,7 +203,7 @@ if __name__ == '__main__':
     Should print:
         {1: {2}, 2: {3, 4}, 3: {5}, 4: {6, 7}, 5: {3}, 6: {3}, 7: {1, 6}}
     '''
-    print(graph.vertices)
+    print('graph.vertices', graph.vertices)
 
     '''
     Valid BFT paths:
