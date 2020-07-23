@@ -59,13 +59,37 @@ class Graph:
                 for next_vert in self.get_neighbors(v):
                     # enqueue new vertices for all the neighbors
                     q.enqueue(next_vert)
-
+                    
+    # Part 3: Implement Depth-First Traversal with a Stack
     def dft(self, starting_vertex):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
         pass  # TODO
+        # create a stack (DFT requires a stack)
+        s = Stack()
+        # push the starting index 
+        s.push(starting_vertex)
+        # create a blank set to hold the nodes that have been visited
+        visited = set()
+
+        # run a loop while the stack still has items
+        while s.size() > 0:
+
+            # pop the first item and store it in a variable
+            v = s.pop()
+
+            # check if the node has already been visited or not
+            if v not in visited:
+                # if not, print it and continue
+                print(v)
+                # add it ot the set
+                visited.add(v)
+
+                for next_vert in self.get_neighbors(v):
+                    # push new vertices for all the neighbors
+                    s.push(next_vert)
 
     def dft_recursive(self, starting_vertex):
         """
