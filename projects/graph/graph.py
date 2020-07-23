@@ -122,8 +122,6 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
-        
         # s1
         # make a queue
         q = Queue()
@@ -207,7 +205,8 @@ class Graph:
         neighbors = set(2)
         '''
 
-    def dfs_recursive(self, starting_vertex, destination_vertex):
+    # Part 7: Implement Depth-First Search using Recursion
+    def dfs_recursive(self, starting_vertex, destination_vertex, visited = None, path = None):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
@@ -215,7 +214,38 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        # base case
+        # if the visited set and the path list are None
+        # create new versions,
+        # else use the versions passed in as parameters
+        if not visited:
+            visited = set()
+        if not path:
+            path = []
+
+        # add the starting vertex to the visited set,
+        # and add the vertex passed in to any vertices already in the list
+        visited.add(starting_vertex)
+        path = path + [starting_vertex]
+
+        # if the starting vertex and the destination are the same,
+        # return the path
+        if starting_vertex == destination_vertex:
+            return path
+
+        # else loop through all remaining vertices,
+        # if the vertex hasn't been visited, 
+        # call dfs recursive and if there is a path,
+        # return it
+        for vert in self.vertices[starting_vertex]:
+            if vert not in visited:
+                path_copy = self.dfs_recursive(vert, destination_vertex, visited, path)
+                if path_copy:
+                    return path_copy 
+
+        # if we get here, there was no path so return None
+        return None
+        
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
