@@ -184,31 +184,39 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        #s2
-        # make a stack 
+        # create a Stack (DFS requires a stack)
+        # and push the starting vertex in a list (to keep track of the traveled path)
+        # create a visited set to keep track of visited nodes
         s = Stack()
-        # push our starting node onto the stack
-        s.push(starting_vertex)
-        # make a set to track the nodes we've visited
+        s.push([starting_vertex])
         visited = set()
 
-        # as long as our stack isn't empty
+        # while the stack still has items
         while s.size() > 0:
-        ## pop off the top, this our current nodes
-            current_node = s.pop()
+            # grab the first item in the stack
+            path = s.pop()
+            # and grab the vertex from the last index in the path
+            vert = path[-1]
 
-        ## check if we we have visited this before, and if not:
-            if current_node not in visited:
-        ### mark it as visited
-                visited.add(current_node)
-        ### print it (in this case)
-                print(current_node)
-        ### get its neighbors
-                neighbors = self.get_neighbors(current_node)
-        ### iterate over neighbors
-                for neighbor in neighbors:
-        #### and add them to our Stack
-                    s.push(neighbor)
+            # if the vertex hasn't been visited
+            if vert not in visited:
+
+                # if the vertex equals our destination value,
+                # return the path, we have our answer
+                if vert == destination_vertex:
+                    return path
+
+                # else add the vertex to visited
+                visited.add(vert)
+
+                # loop through all remaining neighbors and
+                # create a copy of the path,
+                # append the new vertex for all neighbors to the path,
+                # and push the new paths
+                for next_vert in self.get_neighbors(vert):
+                    path_copy = list(path)
+                    path_copy.append(next_vert)
+                    s.push(path_copy)
         '''
         https://raw.githubusercontent.com/LambdaSchool/Graphs/master/objectives/breadth-first-search/img/bfs-visit-order.png
 
