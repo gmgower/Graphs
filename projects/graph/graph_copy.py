@@ -67,7 +67,8 @@ class Graph:
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
-        """    
+        """
+        pass  # TODO
         # create a stack (DFT requires a stack)
         s = Stack()
         # push the starting index 
@@ -128,42 +129,31 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        # create a queue (BFS requires a queue)
-        # and enqueue the starting vertex in a list (to keep track of the traveled path)
-        # create a visited set to keep track of visited nodes
+        # s1
+        # make a queue
         q = Queue()
-        q.enqueue([starting_vertex])
+        # enqueue our start node and
+        q.enqueue(starting_vertex)
+    
+        # make a set to track visited adjacent_nodes
         visited = set()
 
-        # while the queue still has items
+        # while queue still has things in import
         while q.size() > 0:
-            # grab the first item in the queue
-            path = q.dequeue()
-            # and grab the vertex from the last index in the path
-            vert = path[-1]
+        ## dq from front of the line, this is current node
+            current_node = q.dequeue()
+        ## check if we've visited, if not:
+            if current_node not in visited:
+        ### mark it as visited
+                visited.add(current_node)
+                print(current_node)
+        ### get its neighbors
+                neighbors = self.get_neighbors(current_node)
+        ### iterate over neighbors,
+                for neighbor in neighbors:
+        ### add to queue
+                    q.enqueue(neighbor)
 
-            # if the vertex hasn't been visited
-            if vert not in visited:
-
-                # if the vertex equals our destination value,
-                # return the path, we have our answer
-                if vert == destination_vertex:
-                    return path
-
-                # else add the vertex to visited
-                visited.add(vert)
-
-                # loop through all remaining neighbors and
-                # create a copy of the path,
-                # append the new vertex for all neighbors to the path,
-                # and enqueue the new paths
-                for next_vert in self.get_neighbors(vert):
-                    path_copy = list(path)
-                    path_copy.append(next_vert)
-                    q.enqueue(path_copy)
-
-        # if we get here, there was no path from start to destination
-        return None
         '''
         ### https://github.com/LambdaSchool/Graphs/tree/master/objectives/breadth-first-search
 
