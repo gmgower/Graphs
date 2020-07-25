@@ -24,6 +24,8 @@ class Graph:
         """
         Add a directed edge to the graph.
         """
+        # self.vertices = {"A": set("B"), "B": set()}
+        
         # add an edge value to the set in each vertex
         self.vertices[v1].add(v2)
 
@@ -55,7 +57,7 @@ class Graph:
             if current_node not in visited:
         ### mark it as visited
                 visited.add(current_node)
-                print('visited', current_node)
+                print('visited_bft', current_node)
         ### get its neighbors
                 neighbors = self.get_neighbors(current_node)
         ### iterate over neighbors,
@@ -69,7 +71,7 @@ class Graph:
         '''
         starting_vertex = 1
 
-        q = Queue() # Queue(1),Queue(2),Queue(4,3) Queue(4),Queue(5,4) Queue(5),Queue(7,6,5) Queue(7,6),Queue(3,7,6),Queue(3, 3,7,) Queue(6,1,3),Queue(6,1),Queue(6),Queue()
+        q = Queue() # Queue(1),Queue(2),Queue(4,3) Queue(4),Queue(5,4) Queue(5),Queue(7,6,5) Queue(7,6),Queue(3,7,6),Queue(3, 3,7,) Queue(6,1,3),Queue(6,1),Queue(6),Queue(), empty Queue()
         visited = set() # set(1,2,3,4,5,6,7 )
 
         current_node = 2 # 1, 2, 3, 4, 5,6,7, 3,1,6
@@ -84,7 +86,45 @@ class Graph:
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass
+        #s2
+        # make a stack
+        s = Stack()
+        # push our starting node onto the Stack
+        s.push(starting_vertex)        
+        # make a set to track the nodes we've visited
+        visited = set()
+        
+        # as long as our stack isn't empty
+        while s.size() > 0:
+        ## pop off the top, this is our current nodes
+            current_node = s.pop()    
+            
+        ## check if we have visited this before, and if not:
+            if current_node not in visited:
+        ### mark it as visited
+                visited.add(current_node)
+        ### print it(in this case)
+                print('visited_dft', current_node)
+        ### get its neighbors
+                neighbors = self.get_neighbors(current_node)
+        ### iterate over neighbors
+                for neighbor in neighbors:
+        #### and add them to our stack
+                    s.push(neighbor)
+
+    '''
+    https://raw.githubusercontent.com/LambdaSchool/Graphs/master/objectives/breadth-first-search/img/bfs-visit-order.png
+    s = Stack(
+        1 #2, 4, 3, 6, 6, 1, 6, 6, 3, 5, 3, 6, 3, empty stack
+        #   3     7  3  6  6, 3  6  6  6  3
+        #         3     6  3     3  3  3
+        #               3
+    )
+    visited = set() #set(1,2,4,7, 6, 3, 5)
+    
+    current_node = 1 #2, 4, 7, 1, 6, 3, 5, 3, 6, 3
+    neighbors = set(2) # set(2), set(3,4), set(6,7), set(6,1), set(3), set(5), set(3)
+    '''
 
     # Part 4: Implement Depth-First Traversal using Recursion
     def dft_recursive(self, starting_vertex, visited = None):
@@ -131,43 +171,7 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        #s2
-        # make a stack 
-        s = Stack()
-        # push our starting node onto the stack
-        s.push(starting_vertex)
-        # make a set to track the nodes we've visited
-        visited = set()
-
-        # as long as our stack isn't empty
-        while s.size() > 0:
-        ## pop off the top, this our current nodes
-            current_node = s.pop()
-
-        ## check if we we have visited this before, and if not:
-            if current_node not in visited:
-        ### mark it as visited
-                visited.add(current_node)
-        ### print it (in this case)
-                print(current_node)
-        ### get its neighbors
-                neighbors = self.get_neighbors(current_node)
-        ### iterate over neighbors
-                for neighbor in neighbors:
-        #### and add them to our Stack
-                    s.push(neighbor)
-        '''
-        https://raw.githubusercontent.com/LambdaSchool/Graphs/master/objectives/breadth-first-search/img/bfs-visit-order.png
-
-        s = Stack(
-            1
-        )
-
-        visited = set(1,2)
-
-        current_node = 2
-        neighbors = set(2)
-        '''
+        pass
 
     # Part 7: Implement Depth-First Search using Recursion
     def dfs_recursive(self, starting_vertex, destination_vertex, visited = None, path = None):
