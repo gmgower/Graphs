@@ -40,27 +40,43 @@ class Graph:
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        # create a queue (BFT requires a queue)
-        q = Queue()
-        # enqueue the starting index
+        #s1
+        # make a queue
+        q  = Queue()
+        # enqueue our start node
         q.enqueue(starting_vertex)
-        # create a blank set to hold the nodes that have been visited
+        # make a set to track visited nodes
         visited = set()
-
-        # run a loop while the queue still has items
+        # while queue still has things in items
         while q.size() > 0:
-            # dequeue the first item and store it in a variable
-            v = q.dequeue()
+        ## dq from front of the line, this is our current node
+            current_node = q.dequeue()
+        ## check if we've visited, if not:
+            if current_node not in visited:
+        ### mark it as visited
+                visited.add(current_node)
+                print('visited', current_node)
+        ### get its neighbors
+                neighbors = self.get_neighbors(current_node)
+        ### iterate over neighbors,
+                for neighbor in neighbors:
+        #### add ot queue
+                    q.enqueue(neighbor)
 
-            # check if the node has already been visited or not
-            if v not in visited:
-                # if not, print it and
-                print(v)
-                visited.add(v)
+        # walk through
+        # https://github.com/gmgower/Graphs/blob/master/objectives/breadth-first-search/img/bfs-visit-order.png
+        
+        '''
+        starting_vertex = 1
 
-                for next_vert in self.get_neighbors(v):
-                    # enqueue new vertices for all the neighbors
-                    q.enqueue(next_vert)
+        q = Queue() # Queue(1),Queue(2),Queue(4,3) Queue(4),Queue(5,4) Queue(5),Queue(7,6,5) Queue(7,6),Queue(3,7,6),Queue(3, 3,7,) Queue(6,1,3),Queue(6,1),Queue(6),Queue()
+        visited = set() # set(1,2,3,4,5,6,7 )
+
+        current_node = 2 # 1, 2, 3, 4, 5,6,7, 3,1,6
+
+        neighbors = set(2) #set(2), set(3,4), set(5). set(6,7), set(3), set(3), set(1,6)
+        '''
+
 
     # Part 3: Implement Depth-First Traversal with a Stack
     def dft(self, starting_vertex):
@@ -68,30 +84,7 @@ class Graph:
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
-        # create a stack (DFT requires a stack)
-        s = Stack()
-        # push the starting index 
-        s.push(starting_vertex)
-        # create a blank set to hold the nodes that have been visited
-        visited = set()
-
-        # run a loop while the stack still has items
-        while s.size() > 0:
-
-            # pop the first item and store it in a variable
-            v = s.pop()
-
-            # check if the node has already been visited or not
-            if v not in visited:
-                # if not, print it and continue
-                print(v)
-                # add it ot the set
-                visited.add(v)
-
-                for next_vert in self.get_neighbors(v):
-                    # push new vertices for all the neighbors
-                    s.push(next_vert)
+        pass
 
     # Part 4: Implement Depth-First Traversal using Recursion
     def dft_recursive(self, starting_vertex, visited = None):
@@ -129,43 +122,7 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        # s1
-        # make a queue
-        q = Queue()
-        # enqueue our start node and
-        q.enqueue(starting_vertex)
-    
-        # make a set to track visited adjacent_nodes
-        visited = set()
-
-        # while queue still has things in import
-        while q.size() > 0:
-        ## dq from front of the line, this is current node
-            current_node = q.dequeue()
-        ## check if we've visited, if not:
-            if current_node not in visited:
-        ### mark it as visited
-                visited.add(current_node)
-                print(current_node)
-        ### get its neighbors
-                neighbors = self.get_neighbors(current_node)
-        ### iterate over neighbors,
-                for neighbor in neighbors:
-        ### add to queue
-                    q.enqueue(neighbor)
-
-        '''
-        ### https://github.com/LambdaSchool/Graphs/tree/master/objectives/breadth-first-search
-
-        starting_vertex = 1
-            ==> start
-        q = Queue()
-        visited = set(1)
-
-        current_node = 1
         
-        neighbors = set(2)
-        '''
 
     # Part 6: Implement Depth-First Search
     def dfs(self, starting_vertex, destination_vertex):
