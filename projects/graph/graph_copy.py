@@ -127,7 +127,7 @@ class Graph:
     '''
 
     # Part 4: Implement Depth-First Traversal using Recursion
-    def dft_recursive(self, starting_vertex, visited = None):
+    def dft_recursive(self, vertex, visited=None):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
@@ -138,22 +138,22 @@ class Graph:
         # Base case:
         # Progress toward the case 
         # call itself
+        # don't need a stack, when we end up with no neighbors and will recurs back up
         '''
-        # base case:
-        # if visited doesn't exits
-        if not visited:
-        # create a new set
+        if visited == None:
             visited = set()
-        # and add the starting vertex
-        visited.add(starting_vertex)
-        print(starting_vertex)
+        # Check if we have been visited
+        if vertex not in visited:
+            print(vertex)
+            visited.add(vertex)
+        # Base case: if no neighbors
+            neighbors = self.get_neighbors(vertex)
+            if len(neighbors) == 0:
+                return visited
+        # If we do have neighbors, iterate over them and recurse for each one
+            for neighbor in neighbors:
+                self.dfs_recursive(neighbor, visited)
 
-        # loop through all the vertices,
-        for vert in self.vertices[starting_vertex]:
-        # and if it hasn't been visited,
-            if vert not in visited:
-        # recursively call DFT
-                self.dft_recursive(vert, visited)
     
     # Part 5: Implement Breadth-First Search
     def bfs(self, starting_vertex, destination_vertex):
@@ -161,7 +161,40 @@ class Graph:
         Return a list containing the shortest path from
         starting_vertex to destination_vertex in
         breath-first order.
+
+        1. Find the target node 
+        2. Keep track of how you got there
         """
+        # make a queue
+        q = Queue()
+        # make a set to track visited
+        visited = set()
+        # enqueue a PATH TO the starting vertex
+        path = [starting_vertex]
+        q.enqueue(path)
+        ## as long as our queue isn't empty,
+        while q.size() > 0:
+        ### dequeue from the front of the line, this is our current path: []
+            current_path = q.dequeue()
+        ### current_node is the last thing in the path
+            current_node = current_path[-1]
+        ### check if this is the target node
+            if current_node == destination_vertex:
+        #### if so return 
+                return current_path
+        ### check if we'vertex visited yet, if not:
+            if current_node not in visited:
+        #### mark as visited
+                visited.add(current_node)
+        #### get the current node's neighbors
+                neighbors = self.get_neighbors(current_node)
+        #### iterate over the neighbors
+                for neighbor in neighbors:
+        #### add the neighbors to the path_copy
+                    neighbor_path = current_path.copy()
+                    neighbor_path.append(neighbor)
+        #### enqueue the neighbor's path
+                    q.enqueue(neighbor_path)
         
 
     # Part 6: Implement Depth-First Search
