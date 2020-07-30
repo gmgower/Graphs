@@ -81,7 +81,7 @@ def earliest_ancestor(ancestors, starting_node):
     # While the queue is not empty
     while queue.size() > 0:
         # dequeue the first path
-        # Since creating a path, order matters
+        # Since creating a path, order matters # current path does not persit on the queue
         path = queue.dequeue()
         # returns -1 if there is no grandparent
         current_node = path[-1]
