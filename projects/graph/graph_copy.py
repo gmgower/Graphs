@@ -206,48 +206,41 @@ class Graph:
         """
         pass
    
+    ## in dfs_recursive, when we hit our base case, we need to return it all the way up 
 
+    ## When do we want to return from dfs
+    ### When we hit the destination vertex:
     # Part 7: Implement Depth-First Search using Recursion
-    def dfs_recursive(self, starting_vertex, destination_vertex, visited = None, path = None):
+    def dfs_recursive(self, current_vertex, destination_vertex, path = [], visited = None):
         """
         Return a list containing a path from
-        starting_vertex to destination_vertex in
+        current_vertex to destination_vertex in
         depth-first order.
 
         This should be done using recursion.
         """
-        # base case
-        # if the visited set and the path list are None
-        # create new versions,
-        # else use the versions passed in as parameters
-        if not visited:
+        if visited == None:
             visited = set()
-        if not path:
-            path = []
 
-        # add the starting vertex to the visited set,
-        # and add the vertex passed in to any vertices already in the list
-        visited.add(starting_vertex)
-        path = path + [starting_vertex]
+        if current_vertex not in visited:
+            visited.add(current_vertex)
 
-        # if the starting vertex and the destination are the same,
-        # return the path
-        if starting_vertex == destination_vertex:
+        if len(path) == 0:
+            path.append(current_vertex)
+
+        if current_vertex == destination_vertex:
             return path
-
-        # else loop through all remaining vertices,
-        # if the vertex hasn't been visited, 
-        # call dfs recursive and if there is a path,
-        # return it
-        for vert in self.vertices[starting_vertex]:
-            if vert not in visited:
-                path_copy = self.dfs_recursive(vert, destination_vertex, visited, path)
-                if path_copy:
-                    return path_copy 
-
-        # if we get here, there was no path so return None
-        return None
         
+        neighbors = self.get_neighbors(current_vertex)
+
+        for neighbor in neighbors:
+            if neighbor not in visited:
+                #recurse 
+                self.dfs_recursive(neighbor, destination_vertex, path + [neighbor], visited)
+
+
+
+       
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
