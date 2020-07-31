@@ -30,6 +30,10 @@ Note that in the above example, the average number of friendships is exactly 2 b
 
 Now that you have a graph full of users and friendships, you can crawl through their social graphs. `get_all_social_paths()` takes a userID and returns a dictionary containing every user in that user's extended network along with the shortest friendship path between each.
 
+- Example with {1: {8, 10, 5},
+  Going to return a dictionary with
+    {8: [1,8], 10: [1,10], 2: [1, 10, 2], 6: [1, 10, 6]}
+
 ```
 >>> sg = SocialGraph()
 >>> sg.populate_graph(10, 2)
@@ -48,7 +52,18 @@ Note that in this sample, Users 3, 4 and 9 are not in User 1's extended social n
 
 1. To create 100 users with an average of 10 friends each, how many times would you need to call `add_friendship()`? Why?
 
-2. If you create 1000 users with an average of 5 random friends each, what percentage of other users will be in a particular user's extended social network? What is the average degree of separation between a user and those in his/her extended network?
+100 * 10 = 1000
+
+1000 / 100 = 10
+
+2. If you create 1000 users with an average of 5 random friends each, what percentage of other users will be in a particular user's extended social network? 
+
+    - run it, and see!
+    - count how many friends are in your dictionary
+    
+    What is the average degree of separation between a user and those in his/her extended network?
+    - add
+
 
 
 
